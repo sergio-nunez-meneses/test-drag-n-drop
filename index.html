@@ -10,18 +10,18 @@
 <body>
 
   <div class="main-container">
-    <div class="drag-container" ondragover="dragOverHandler(event)" ondrop="dropHandler(event)">
+    <div id="dragContainer" class="drag-container" ondragover="dragOverHandler(event)" ondrop="dropHandler(event)">
       drop the draggable back here
-      
-      <div id="draggableDiv" class="draggable-div" draggable="true" ondragstart="dragStartHandler(event);">
+
+      <!-- <div id="draggableDiv" class="draggable-div" draggable="true" ondragstart="dragStartHandler(event);">
         draggable
-      </div>
+      </div> -->
     </div>
 
     <div class="droppable-div" ondragover="dragOverHandler(event)" ondrop="dropHandler(event)">
       droppable
     </div>
-  </div>
+  </div>¡
 
   <script src="script.js"></script>
 </body>
