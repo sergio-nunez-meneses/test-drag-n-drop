@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  border: 1px solid #5cb85c;
+  font-family: helvetica, sans-serif;
+  color: #f7f7f7;
+  text-transform: full-width;
+}
+
+.drag-container, .droppable-div {
+  flex-basis: 100%;
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.draggable-div {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #5bc0de;
+}
+
+.droppable-div {
+  background-color: #0275d8;
+}
