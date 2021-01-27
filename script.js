@@ -1,9 +1,23 @@
+const draggableElements = 10;
+
+function getBy(attribute, value) {
+  if (attribute === 'tag') {
+    return document.getElementsByTagName(value);
+  } else if (attribute === 'id') {
+    return document.getElementById(value);
+  } else if (attribute === 'name') {
+    return document.getElementsByName(value)[0];
+  } else if (attribute === 'class') {
+    return document.getElementsByClassName(value);
+  }
+}
+
 function randomHexColor() {
   return '#' + Math.floor(Math.random()*16777215).toString(16);
 }
 
 function dragStartHandler(e) {
-  console.log('drag started');
+  console.log('dragged ' + e.target.id + ' element');
 
   e.dataTransfer.setData('text/plain', e.target.id);
   e.currentTarget.style.backgroundColor = '#f0ad4e';
@@ -20,36 +34,37 @@ function dropHandler(e) {
   console.log('element dropped');
 
   e.preventDefault();
-  var id = e.dataTransfer.getData('text'),
-    draggableElement = document.getElementById(id),
-    droppable = event.target;
+  const id = e.dataTransfer.getData('text'),
+    draggableElement = getBy('id', id),
+    droppable = e.target;
 
-  droppable.appendChild(draggableElement);
   draggableElement.style.backgroundColor = draggableElement.dataset.color;
+  droppable.appendChild(draggableElement);
+  
+  e.dataTransfer.clearData();
 }
 
 class DraggableDiv {
-  constructor(id, width, height) {
+  constructor(id) {
     // create
     this.element = document.createElement('div');
-    this.element.id = 'drag' + id;
+    this.element.id = 'draggable' + id;
     this.element.innerHTML = this.element.id;
 
     // style
-    this.style = this.element.style;
-    this.style.width = width + 'px';
-    this.style.height = height + 'px';
+    this.element.setAttribute('class', 'draggable-div');
     this.color = randomHexColor();
-    this.style.backgroundColor = this.color;
+    this.element.style.backgroundColor = this.color;
     this.element.setAttribute('data-color', this.color); // store color
-    this.style.color = '#f7f7f7';
 
     // allow drag
     this.element.draggable = true;
     this.element.setAttribute('ondragstart', 'dragStartHandler(event)');
 
-    document.getElementById('dragContainer').appendChild(this.element);
+    getBy('id', 'dragContainer').appendChild(this.element);
   }
 }
 
-let div = new DraggableDiv(1, 100, 100);
+for (var i = 0; i < draggableElements; i++) {
+  new DraggableDiv(i);
+}

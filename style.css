@@ -2,32 +2,34 @@ body {
   margin: 0;
 }
 
-.main-container {
+.main-container, .draggable-div {
   display: flex;
+  justify-content: center;
+}
+
+.main-container {
   border: 1px solid #5cb85c;
   font-family: helvetica, sans-serif;
-  color: #f7f7f7;
   text-transform: full-width;
 }
 
-.drag-container {
-  color: #000;
-}
-
 .drag-container, .droppable-div {
-  flex-basis: 100%;
-  flex-grow: 1;
-  padding: 10px;
+  width: 100%;
+  margin: auto 0;
+  padding: 1rem;
 }
 
 .draggable-div, .droppable-div {
   color: #f7f7f7;
 }
 
+.drag-container {
+  color: #000;
+}
+
 .draggable-div {
-  margin: 10px 0;
-  padding: 10px;
-  background-color: #5bc0de;
+  margin: 0.5rem 0;
+  padding: 1rem;
 }
 
 .droppable-div {
