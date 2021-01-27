@@ -11,3 +11,15 @@ function dragOverHandler(e) {
   e.preventDefault();
   e.dataTransfer.dropEffect = 'move';
 }
+
+function dropHandler(e) {
+  console.log('element dropped');
+
+  e.preventDefault();
+  var id = e.dataTransfer.getData('text'),
+    draggableElement = document.getElementById(id),
+    droppable = event.target;
+
+  droppable.appendChild(draggableElement);
+  // e.dataTransfer.clearData();
+}
