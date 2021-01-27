@@ -23,7 +23,7 @@ function dropHandler(e) {
   var id = e.dataTransfer.getData('text'),
     draggableElement = document.getElementById(id),
     droppable = event.target;
-
+  
   droppable.appendChild(draggableElement);
   // e.dataTransfer.clearData();
 }
