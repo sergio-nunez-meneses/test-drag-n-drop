@@ -10,10 +10,18 @@ body {
   text-transform: full-width;
 }
 
+.drag-container {
+  color: #000;
+}
+
 .drag-container, .droppable-div {
   flex-basis: 100%;
   flex-grow: 1;
   padding: 10px;
+}
+
+.draggable-div, .droppable-div {
+  color: #f7f7f7;
 }
 
 .draggable-div {

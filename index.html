@@ -10,7 +10,9 @@
 <body>
 
   <div class="main-container">
-    <div class="drag-container">
+    <div class="drag-container" ondragover="dragOverHandler(event)" ondrop="dropHandler(event)">
+      drop the draggable back here
+      
       <div id="draggableDiv" class="draggable-div" draggable="true" ondragstart="dragStartHandler(event);">
         draggable
       </div>
