@@ -13,7 +13,7 @@ function getBy(attribute, value) {
 }
 
 function randomHexColor() {
-  return '#' + Math.floor(Math.random()*16777215).toString(16);
+  return '#' + Math.floor(Math.random() * 16777215).toString(16);
 }
 
 function dragStartHandler(e) {
@@ -40,7 +40,7 @@ function dropHandler(e) {
 
   draggableElement.style.backgroundColor = draggableElement.dataset.color;
   droppable.appendChild(draggableElement);
-  
+
   e.dataTransfer.clearData();
 }
 
