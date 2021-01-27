@@ -23,9 +23,9 @@ function dropHandler(e) {
   var id = e.dataTransfer.getData('text'),
     draggableElement = document.getElementById(id),
     droppable = event.target;
-  
+
   droppable.appendChild(draggableElement);
-  // e.dataTransfer.clearData();
+  draggableElement.style.backgroundColor = draggableElement.dataset.color;
 }
 
 class DraggableDiv {
@@ -33,6 +33,7 @@ class DraggableDiv {
     // create
     this.element = document.createElement('div');
     this.element.id = 'drag' + id;
+    this.element.innerHTML = this.element.id;
 
     // style
     this.style = this.element.style;
@@ -40,6 +41,8 @@ class DraggableDiv {
     this.style.height = height + 'px';
     this.color = randomHexColor();
     this.style.backgroundColor = this.color;
+    this.element.setAttribute('data-color', this.color); // store color
+    this.style.color = '#f7f7f7';
 
     // allow drag
     this.element.draggable = true;
