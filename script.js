@@ -71,11 +71,16 @@
 
 // new test
 
-var list = document.getElementById('list'),
-  colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'],
+var maxColors = 10,
+  colors = [],
   original = colors.slice(),
   randomized = colors.sort(() => Math.random() - 0.5),
+  list = document.getElementById('list'),
   dragging, draggedOver;
+
+function randomHexColor() {
+  return '#' + Math.floor(Math.random() * 16777215).toString(16);
+}
 
 function generateList(original, randomized) {
   if (randomized.join('') !== original.join('')) {
@@ -91,8 +96,9 @@ function renderListItems(colors) {
   colors.forEach(item => {
     // create
     var listItem = document.createElement('li');
+    listItem.id = item;
     listItem.style.backgroundColor = item;
-    listItem.innerText = item;
+    listItem.innerText = randomized.indexOf(item);
 
     // allow dragging
     listItem.draggable = true;
@@ -105,28 +111,27 @@ function renderListItems(colors) {
 }
 
 function dragStartHandler(e) {
-  dragging = e.target.innerText;
-  console.log('start dragging:', dragging);
+  dragging = e.target.id;
 }
 
 function dragOverHandler(e) {
   e.preventDefault();
 
-  draggedOver = e.target.innerText;
-  console.log('drag over:', draggedOver);
+  draggedOver = e.target.id;
 }
 
 function compareItems(e) {
-  console.log(dragging, draggedOver);
-
   var index1 = randomized.indexOf(dragging),
     index2 = randomized.indexOf(draggedOver);
-  console.log('index1: ' + index1, 'index2: ' + index2);
 
   randomized.splice(index1, 1);
   randomized.splice(index2, 0, dragging);
-  
+
   renderListItems(randomized);
 };
+
+for (var i = 0; i < maxColors; i++) {
+  colors.push(randomHexColor());
+}
 
 generateList(original, randomized);
