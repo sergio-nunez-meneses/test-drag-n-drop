@@ -1,80 +1,7 @@
-// const draggableElements = 10;
-//
-// function getBy(attribute, value) {
-//   if (attribute === 'tag') {
-//     return document.getElementsByTagName(value);
-//   } else if (attribute === 'id') {
-//     return document.getElementById(value);
-//   } else if (attribute === 'name') {
-//     return document.getElementsByName(value)[0];
-//   } else if (attribute === 'class') {
-//     return document.getElementsByClassName(value);
-//   }
-// }
-//
-// function randomHexColor() {
-//   return '#' + Math.floor(Math.random() * 16777215).toString(16);
-// }
-//
-// function dragStartHandler(e) {
-//   console.log('dragged ' + e.target.id + ' element');
-//
-//   e.dataTransfer.setData('text/plain', e.target.id);
-//   e.currentTarget.style.backgroundColor = '#f0ad4e';
-// }
-//
-// function dragOverHandler(e) {
-//   console.log('dragging element');
-//
-//   e.preventDefault();
-//   e.dataTransfer.dropEffect = 'move';
-// }
-//
-// function dropHandler(e) {
-//   console.log('element dropped');
-//
-//   e.preventDefault();
-//   const id = e.dataTransfer.getData('text'),
-//     draggableElement = getBy('id', id),
-//     droppable = e.target;
-//
-//   draggableElement.style.backgroundColor = draggableElement.dataset.color;
-//   droppable.appendChild(draggableElement);
-//
-//   e.dataTransfer.clearData();
-// }
-//
-// class DraggableDiv {
-//   constructor(id) {
-//     // create
-//     this.element = document.createElement('div');
-//     this.element.id = 'draggable' + id;
-//     this.element.innerHTML = this.element.id;
-//
-//     // style
-//     this.element.setAttribute('class', 'draggable-div');
-//     this.color = randomHexColor();
-//     this.element.style.backgroundColor = this.color;
-//     this.element.setAttribute('data-color', this.color); // store color
-//
-//     // allow drag
-//     this.element.draggable = true;
-//     this.element.setAttribute('ondragstart', 'dragStartHandler(event)');
-//
-//     getBy('id', 'dragContainer').appendChild(this.element);
-//   }
-// }
-//
-// for (var i = 0; i < draggableElements; i++) {
-//   new DraggableDiv(i);
-// }
-
-// new test
-
 var maxColors = 10,
   colors = [],
-  original = colors.slice(),
-  randomized = colors.sort(() => Math.random() - 0.5),
+  originalColors = colors.slice(),
+  randomizedColors = colors.sort(() => Math.random() - 0.5),
   list = document.getElementById('list'),
   dragging, draggedOver;
 
@@ -98,7 +25,7 @@ function renderListItems(colors) {
     var listItem = document.createElement('li');
     listItem.id = item;
     listItem.style.backgroundColor = item;
-    listItem.innerText = randomized.indexOf(item);
+    listItem.innerText = randomizedColors.indexOf(item);
 
     // allow dragging
     listItem.draggable = true;
@@ -112,26 +39,31 @@ function renderListItems(colors) {
 
 function dragStartHandler(e) {
   dragging = e.target.id;
+  // console.log('hover dragged');
 }
 
 function dragOverHandler(e) {
   e.preventDefault();
 
   draggedOver = e.target.id;
+
+  if (draggedOver !== dragging) {
+    // console.log('hover dragged over');
+  }
 }
 
 function compareItems(e) {
-  var index1 = randomized.indexOf(dragging),
-    index2 = randomized.indexOf(draggedOver);
+  var index1 = randomizedColors.indexOf(dragging),
+    index2 = randomizedColors.indexOf(draggedOver);
 
-  randomized.splice(index1, 1);
-  randomized.splice(index2, 0, dragging);
+  randomizedColors.splice(index1, 1);
+  randomizedColors.splice(index2, 0, dragging);
 
-  renderListItems(randomized);
+  renderListItems(randomizedColors);
 };
 
 for (var i = 0; i < maxColors; i++) {
   colors.push(randomHexColor());
 }
 
-generateList(original, randomized);
+generateList(originalColors, randomizedColors);
