@@ -35,3 +35,22 @@ body {
 .droppable-div {
   background-color: #0275d8;
 }
+
+/* new test */
+
+.container{
+  width: 500px;
+  margin: auto;
+}
+
+.list{
+  list-style: none;
+}
+
+.list li{
+  width: 100%;
+  border-radius: 2px;
+  margin: 0.75rem;
+  padding: 1rem;
+  cursor: pointer;
+}
