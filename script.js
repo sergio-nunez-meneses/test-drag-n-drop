@@ -74,7 +74,8 @@
 var list = document.getElementById('list'),
   colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'],
   original = colors.slice(),
-  randomized = colors.sort(() => Math.random() - 0.5);
+  randomized = colors.sort(() => Math.random() - 0.5),
+  dragging, draggedOver;
 
 function generateList(original, randomized) {
   if (randomized.join('') !== original.join('')) {
@@ -93,8 +94,34 @@ function renderListItems(colors) {
     listItem.style.backgroundColor = item;
     listItem.innerText = item;
 
+    // allow dragging
+    listItem.draggable = true;
+    listItem.addEventListener('drag', dragStartHandler);
+    listItem.addEventListener('dragover', dragOverHandler);
+    listItem.addEventListener('drop', compare);
+
     list.appendChild(listItem);
   });
 }
+
+function dragStartHandler(e) {
+  dragging = e.target.innerText;
+  console.log('start dragging:', dragging);
+}
+
+function dragOverHandler(e) {
+  e.preventDefault();
+
+  draggedOver = e.target.innerText;
+  console.log('drag over:', draggedOver);
+}
+
+function compare(e) {
+  console.log(dragging, draggedOver);
+
+  var index1 = randomized.indexOf(dragging),
+    index2 = randomized.indexOf(draggedOver);
+  console.log('index1: ' + index1, 'index2: ' + index2);
+};
 
 generateList(original, randomized);
