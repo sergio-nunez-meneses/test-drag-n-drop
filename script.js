@@ -98,7 +98,7 @@ function renderListItems(colors) {
     listItem.draggable = true;
     listItem.addEventListener('drag', dragStartHandler);
     listItem.addEventListener('dragover', dragOverHandler);
-    listItem.addEventListener('drop', compare);
+    listItem.addEventListener('drop', compareItems);
 
     list.appendChild(listItem);
   });
@@ -116,12 +116,17 @@ function dragOverHandler(e) {
   console.log('drag over:', draggedOver);
 }
 
-function compare(e) {
+function compareItems(e) {
   console.log(dragging, draggedOver);
 
   var index1 = randomized.indexOf(dragging),
     index2 = randomized.indexOf(draggedOver);
   console.log('index1: ' + index1, 'index2: ' + index2);
+
+  randomized.splice(index1, 1);
+  randomized.splice(index2, 0, dragging);
+  
+  renderListItems(randomized);
 };
 
 generateList(original, randomized);
